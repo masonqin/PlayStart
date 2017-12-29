@@ -1,0 +1,71 @@
+@(videoUrl: String)
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>videojs-playlist Demo</title>
+    <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/examples.css")" >
+    <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/video-js.css")" >
+    <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/videojs-playlist-ui.css")" >
+    <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/videojs-playlist-ui.vertical.css")" >
+    <script src="@routes.Assets.versioned("javascripts/video.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/videojs-playlist.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/videojs-playlist-ui.js")"></script>
+</head>
+
+<body>
+<div class="player-container">
+    <video id="video" class="videoblock" height="400" width="800" controls>
+        <source src=@videoUrl type="video/mp4">
+        <!--<source src="http://vjs.zencdn.net/v/oceans.webm" type="video/webm">-->
+    </video>
+</div>
+
+<div class="options">
+    <div class="mark-group">
+        <h4>游戏</h4>
+        <h5>按玩法</h5>
+        <table>
+        <tbody>
+            <tr>
+                <td>
+                <label><input class="markbox" type="checkbox" name="markbox"/> MMORPG</label>
+                </td>
+                <td>
+                <label><input class="markbox" type="checkbox" name="markbox"/> SLG</label>
+                </td>
+                <td>
+                <label><input class="markbox" type="checkbox" name="markbox"/> 卡牌</label>
+                </td>
+                <td>
+                <label><input class="markbox" type="checkbox" name="markbox"/> 竞技</label>
+                </td>
+                <td>
+                <label><input class="markbox" type="checkbox" name="markbox"/> 策略</label>
+                </td>
+             </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="button-group">
+    <h4></h4>
+    <button class="submit">submit</button>
+    <button class="cancel">cancel</button>
+</div>
+</body>
+
+<script>
+
+
+$(document).ready(function(){
+
+
+
+})
+
+</script>
+
+
+</html>

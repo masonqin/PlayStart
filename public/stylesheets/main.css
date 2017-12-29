@@ -1,0 +1,62 @@
+/*
+  We include some minimal custom CSS to make the playlist UI look good
+  in this context.
+*/
+
+
+/*
+        video page
+*/
+button {
+    margin: 1em;
+    width: 10em;
+}
+
+.options {
+    margin: 1em;
+}
+
+.autoadvance-group label {
+    margin: 10px;
+}
+
+/*
+        Video Board css
+*/
+#videoboard {
+
+    text-align: left;
+    margin: auto;
+    /*	width: 960px
+    */;
+}
+
+.videodiv {
+    width: 130px;
+    height: 90px;
+    margin: 10px;
+    padding: 16px;
+    background-color: #aaa;
+    vertical-align: top;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    display: inline-block;
+}
+
+.videodiv span {
+    display: block;
+    white-space:pre-wrap;
+}
+
+.videodiv a {
+    text-decoration: none;
+}
+
+.videodiv a:visited, a:active, a:hover {
+    color: #000;
+}
+
+.videodiv a:hover {
+    text-decoration: underline;
+}

@@ -1,0 +1,30 @@
+/*
+  We include some minimal custom CSS to make the playlist UI look good
+  in this context.
+*/
+/*
+body {
+  font-family: Arial, sans-serif;
+}
+*/
+.info {
+  background-color: #eee;
+  border: thin solid #333;
+  border-radius: 3px;
+  margin: 0 0 20px;
+  padding: 0 5px;
+}
+
+.player-container {
+  background: #1a1a1a;
+  overflow: auto;
+  width: 800px;
+  margin: 0 0 20px;
+}
+
+.videoblock {
+  float: center;
+  width: 800px;
+  height 600px
+}
+
