@@ -1,9 +1,10 @@
 package controllers;
 
+import static play.mvc.Controller.*;
 import com.fasterxml.jackson.databind.JsonNode;
-import play.libs.Json;
 import play.libs.ws.WSClient;
-import play.mvc.*;
+
+import play.mvc.Result;
 import services.VideoQuery;
 import views.html.video;
 
@@ -12,8 +13,6 @@ import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
-import static play.mvc.Results.ok;
 
 
 public class VideoListController {
@@ -44,10 +43,17 @@ public class VideoListController {
     public Result getVideo(String videoUrlMD5) {
 
         String videoUrl = videoUrlMap.get(videoUrlMD5).get("videoUrl").asText();
-        System.out.println("Video MD5: " + videoUrlMD5);
-        System.out.println("Video Url: " + videoUrl);
         return ok(video.render(videoUrl));
+    }
 
+    public Result setVideoLabel(){
+        JsonNode videoLabelNode = request().body().asJson();
+        if(videoLabelNode != null){
+            System.out.println(videoLabelNode.toString());
+            VideoQuery.setLabelInfo(videoLabelNode.get("videoUrlMD5").asText(), videoLabelNode.toString());
+            return ok();
+        }
+        return notFound();
     }
 
 }

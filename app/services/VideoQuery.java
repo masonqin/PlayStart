@@ -5,9 +5,9 @@ import play.libs.Json;
 import play.libs.ws.*;
 import play.libs.ws.WSResponse;
 import play.libs.ws.WSRequest;
-import model.Video;
 
 import java.util.concurrent.CompletionStage;
+import redis.clients.jedis.Jedis;
 
 public class VideoQuery {
 
@@ -30,6 +30,11 @@ public class VideoQuery {
             e.printStackTrace();
         }
         return videosNode;
+    }
+
+    public static void setLabelInfo(String videoUrlMD5, String lable){
+        Jedis jedis = new Jedis("localhost", 6379);
+        jedis.sadd(videoUrlMD5,lable);
     }
 
 }

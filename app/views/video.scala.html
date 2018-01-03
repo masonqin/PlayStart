@@ -12,6 +12,7 @@
     <script src="@routes.Assets.versioned("javascripts/video.js")"></script>
     <script src="@routes.Assets.versioned("javascripts/videojs-playlist.js")"></script>
     <script src="@routes.Assets.versioned("javascripts/videojs-playlist-ui.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/video_label.js")"></script>
 </head>
 
 <body>
@@ -27,113 +28,7 @@
 
     </div>
 </div>
-<div class="button-group">
-    <h4></h4>
-    <button class="submit">submit</button>
-    <button class="cancel">cancel</button>
-</div>
+
 </body>
-
-<script>
-
-$(document).ready(function(){
-
-    var game_groups = new Array(5);
-    for(i=0;i<game_groups.length;i++){
-        game_groups[i] = new Object();
-    }
-    game_groups[0].name = "按玩法";
-    game_groups[0].valueArray = new Array("MMORPG","SLG","卡牌","竞技","策略","放置","经营","消除","竞速",
-                                "赌博","棋牌","生存","单机","沙盒","IO","MOBA","射击","冒险",
-                                "体育","模拟","街机","益智","音乐","文字");
-    game_groups[1].name = "按题材";
-    game_groups[1].valueArray = new Array("三国","西游","武侠","传奇","二次元","现代","古代	","魔幻","科幻",
-                               "卡通","校园","动物");
-    game_groups[2].name = "按风格";
-    game_groups[2].valueArray = new Array("2D","3D","简约","像素	","清新","唯美","水墨","酷炫","暴力","惊悚",
-                               "欧美","日系","独立","剧情");
-    game_groups[3].name = "按受众";
-    game_groups[3].valueArray = new Array("男性","女性","学生","上班族","大龄","大R	");
-    game_groups[4].name = "按公司";
-    game_groups[4].valueArray = new Array("腾讯","网易");
-
-    var app_groups = new Array(2);
-    for(i=0;i<app_groups.length;i++){
-        app_groups[i] = new Object();
-    }
-    app_groups[0].name = "按行业";
-    app_groups[0].valueArray = new Array("儿童","教育	","购物","直播","视频	","图片","工作","美食	","健康",
-                                 "运动","旅游","音乐","体育","新闻","工具","社交","金融","导航",
-                                 "图书","天气");
-    app_groups[1].name = "细分";
-    app_groups[1].valueArray = new Array("故事","幼教","海外	","游戏","电影","美颜	","聊天","外卖","医疗	",
-                                  "健身","酒店","铃声","足球","信息流","搜索","聊天","银行","网文",
-                                  "英语","中小学","母婴","主播","电视剧","录像","邮件","菜谱","药品",
-                                  "跑步","航空","电台","篮球","媒体","存储","社区","支付","漫画","绘画",
-                                  "大学","美妆","草根","综艺","剪辑","招聘","烘焙","母婴","骑行","票务",
-                                  "乐器","彩票","海外","浏览器","匿名","理财","有声","音乐","英语",
-                                  "潮流","电视","体育","设计","工商","辅食","女性","约车","创作","棋牌",
-                                  "政务","输入法","狼人杀","股票","模拟","文艺","奢侈品","体育","搞笑",
-                                  "社区","酒水","睡眠","K歌","舞蹈","安全","婚恋","贷款","驾驶","二手",
-                                  "动漫","电竞","WiFi","表情","记账","汽车","日历","生鲜","通讯","房产",
-                                  "团购","票务","众筹");
-
-
-
-    markDiv = document.getElementsByClassName("mark-group")[0];
-    h4 = document.createElement("h4");
-    h4.innerHTML = "游戏";
-    markDiv.appendChild(h4);
-    createLabelTable(markDiv,game_groups);
-
-    h4 = document.createElement("h4");
-    h4.innerHTML = "应用";
-    markDiv.appendChild(h4);
-    createLabelTable(markDiv,app_groups);
-});
-
-
-function createLabelTable(markDiv,groups){
-
-    var line_num = 13;
-
-    for(i=0;i<groups.length;i++){
-
-        h5 = document.createElement("h5");
-        h5.innerHTML = groups[i].name;
-        markDiv.appendChild(h5);
-
-        table = document.createElement("table");
-        tbody = document.createElement("tbody");
-        tr = document.createElement("tr");
-
-        for(j=0;j<groups[i].valueArray.length;j++){
-
-            td = document.createElement("td");
-            label = document.createElement("label");
-            input = document.createElement("input");
-            input.class = "markbox";
-            input.type = "checkbox";
-            input.name = "markbox"
-            label.innerHTML = groups[i].valueArray[j];
-            td.appendChild(input);
-            td.appendChild(label);
-            tr.appendChild(td);
-
-            if(j>0 && (j+1)%line_num == 0){
-                tbody.appendChild(tr);
-                tr = document.createElement("tr");
-            }
-        }
-        tbody.appendChild(tr);
-        table.appendChild(tbody);
-        markDiv.appendChild(table);
-    }
-}
-
-
-
-</script>
-
 
 </html>
