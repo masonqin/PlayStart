@@ -5,12 +5,14 @@ $(document).ready(function(){
 
         var videoList = ret.data;
         videoIndex = 0;
-        $.each(videoList,function(md5,videoElement){
+        $.each(videoList,function(videoUrlMD5,videoElement){
 
             videoBoard = document.getElementById("videoboard");
             videoDiv = document.createElement("div");
             videoDiv.setAttribute("class", "videodiv");
-            videoDiv.setAttribute("id",md5);
+            videoDiv.setAttribute("id",videoUrlMD5);
+            videoUrl = videoElement.videoUrl;
+            videoDiv.setAttribute("videoUrl",videoUrl);
 
             span = document.createElement("span");
             span.innerHTML = "Index: " + videoIndex++;
@@ -21,7 +23,7 @@ $(document).ready(function(){
             videoDiv.appendChild(span);
 
             videolink = document.createElement("a");
-            markUrl = "getVideo?videoUrlMD5=" + md5
+            markUrl = "getVideo?videoUrlMD5=" + videoUrlMD5 + "&videoUrl=" + videoUrl
             videolink.href = markUrl;
             videolink.innerHTML = "前去打标签";
             videoDiv.appendChild(videolink);

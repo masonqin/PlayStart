@@ -40,9 +40,9 @@ public class VideoListController {
         return ok(returnNode);
     }
 
-    public Result getVideo(String videoUrlMD5) {
+    public Result getVideo(String videoUrlMD5, String videoUrl) {
 
-        String videoUrl = videoUrlMap.get(videoUrlMD5).get("videoUrl").asText();
+        //String videoUrl = videoUrlMap.get(videoUrlMD5).get("videoUrl").asText();
         return ok(video.render(videoUrl));
     }
 

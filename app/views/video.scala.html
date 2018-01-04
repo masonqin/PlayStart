@@ -16,11 +16,19 @@
 </head>
 
 <body>
+
 <div class="player-container">
     <video id="video" class="videoblock" height="400" width="800" controls>
         <source src=@videoUrl type="video/mp4">
         <!--<source src="http://vjs.zencdn.net/v/oceans.webm" type="video/webm">-->
     </video>
+</div>
+
+<div class="options">
+    <div class="tab-button">
+        <button class="button" onClick="gameTab()">Game</button>
+        <button class="button" onClick="appTab()">App</button>
+    </div>
 </div>
 
 <div class="options">

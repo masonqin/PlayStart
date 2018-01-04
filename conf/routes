@@ -14,6 +14,6 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 
 GET     /getVideoList               controllers.VideoListController.getVideoList
 
-GET     /getVideo                   controllers.VideoListController.getVideo(videoUrlMD5: String )
+GET     /getVideo                   controllers.VideoListController.getVideo(videoUrlMD5: String, videoUrl: String )
 
 POST    /setVideoLabel              controllers.VideoListController.setVideoLabel

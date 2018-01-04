@@ -413,7 +413,7 @@ var labelJSONLib =
         "children":{
             "categoryID":"0010",
             "categoryChName":"儿童",
-            "categoryEnName":"method",
+            "categoryEnName":"children",
             "categoryMark":"",
             "labels":{
                 "story":{
@@ -451,7 +451,7 @@ var labelJSONLib =
         "education":{
             "categoryID":"0011",
             "categoryChName":"教育",
-            "categoryEnName":"method",
+            "categoryEnName":"education",
             "categoryMark":"",
             "labels":{
                 "preschool":{
@@ -768,16 +768,34 @@ var labelJSONLib =
             "categoryEnName":"health",
             "categoryMark":"",
             "labels":{
-                "story":{
-                    "labelID":"0105",
-                    "labelChName":"幼教",
-                    "labelEnName":"story",
+                "treatment":{
+                    "labelID":"0148",
+                    "labelChName":"医疗",
+                    "labelEnName":"treatment",
                     "labelMark":""
                 },
-                "english":{
-                    "labelID":"0001",
-                    "labelChName":"中小学",
-                    "labelEnName":"english",
+                "medicinal":{
+                    "labelID":"0149",
+                    "labelChName":"药品",
+                    "labelEnName":"medicinal",
+                    "labelMark":""
+                },
+                "infant":{
+                    "labelID":"0150",
+                    "labelChName":"母婴",
+                    "labelEnName":"infant",
+                    "labelMark":""
+                },
+                "female":{
+                    "labelID":"0151",
+                    "labelChName":"女性",
+                    "labelEnName":"female",
+                    "labelMark":""
+                },
+                "sleep":{
+                    "labelID":"0152",
+                    "labelChName":"睡眠",
+                    "labelEnName":"sleep",
                     "labelMark":""
                 }
             }
@@ -788,18 +806,24 @@ var labelJSONLib =
             "categoryEnName":"exercise",
             "categoryMark":"",
             "labels":{
-                "story":{
-                    "labelID":"0105",
-                    "labelChName":"幼教",
-                    "labelEnName":"story",
+                "fitness":{
+                    "labelID":"0153",
+                    "labelChName":"健身",
+                    "labelEnName":"fitness",
                     "labelMark":""
                 },
-                "english":{
-                    "labelID":"0001",
-                    "labelChName":"中小学",
-                    "labelEnName":"english",
+                "running":{
+                    "labelID":"0154",
+                    "labelChName":"跑步",
+                    "labelEnName":"running",
                     "labelMark":""
-                }
+                },
+                 "cycling":{
+                     "labelID":"0155",
+                     "labelChName":"骑行",
+                     "labelEnName":"cycling",
+                     "labelMark":""
+                 }
             }
         },
         "travel":{
@@ -808,16 +832,28 @@ var labelJSONLib =
             "categoryEnName":"travel",
             "categoryMark":"",
             "labels":{
-                "story":{
-                    "labelID":"0105",
-                    "labelChName":"幼教",
-                    "labelEnName":"story",
+                "hotel":{
+                    "labelID":"0156",
+                    "labelChName":"酒店",
+                    "labelEnName":"hotel",
                     "labelMark":""
                 },
-                "english":{
-                    "labelID":"0001",
-                    "labelChName":"中小学",
-                    "labelEnName":"english",
+                "flight":{
+                    "labelID":"0157",
+                    "labelChName":"航空",
+                    "labelEnName":"flight",
+                    "labelMark":""
+                },
+                "ticket":{
+                    "labelID":"0158",
+                    "labelChName":"票务",
+                    "labelEnName":"ticket",
+                    "labelMark":""
+                },
+                "taxihailing":{
+                    "labelID":"0159",
+                    "labelChName":"约车",
+                    "labelEnName":"taxihailing",
                     "labelMark":""
                 }
             }
@@ -828,16 +864,34 @@ var labelJSONLib =
             "categoryEnName":"music",
             "categoryMark":"",
             "labels":{
-                "story":{
-                    "labelID":"0105",
-                    "labelChName":"幼教",
-                    "labelEnName":"story",
+                "ringing":{
+                    "labelID":"0160",
+                    "labelChName":"铃声",
+                    "labelEnName":"ringing",
                     "labelMark":""
                 },
-                "english":{
-                    "labelID":"0001",
-                    "labelChName":"中小学",
-                    "labelEnName":"english",
+                "broadcast":{
+                    "labelID":"0161",
+                    "labelChName":"电台",
+                    "labelEnName":"broadcast",
+                    "labelMark":""
+                },
+                "instruments":{
+                    "labelID":"0162",
+                    "labelChName":"乐器",
+                    "labelEnName":"instruments",
+                    "labelMark":""
+                },
+                "creation":{
+                    "labelID":"0163",
+                    "labelChName":"创作",
+                    "labelEnName":"creation",
+                    "labelMark":""
+                },
+                "KTV":{
+                    "labelID":"0164",
+                    "labelChName":"K歌",
+                    "labelEnName":"KTV",
                     "labelMark":""
                 }
             }
@@ -848,16 +902,40 @@ var labelJSONLib =
             "categoryEnName":"sports",
             "categoryMark":"",
             "labels":{
-                "story":{
-                    "labelID":"0105",
-                    "labelChName":"幼教",
-                    "labelEnName":"story",
+                "football":{
+                    "labelID":"0165",
+                    "labelChName":"足球",
+                    "labelEnName":"football",
                     "labelMark":""
                 },
-                "english":{
-                    "labelID":"0001",
-                    "labelChName":"中小学",
-                    "labelEnName":"english",
+                "basketball":{
+                    "labelID":"0166",
+                    "labelChName":"篮球",
+                    "labelEnName":"basketball",
+                    "labelMark":""
+                },
+                "lottery":{
+                    "labelID":"0167",
+                    "labelChName":"彩票",
+                    "labelEnName":"lottery",
+                    "labelMark":""
+                },
+                "chesscard":{
+                    "labelID":"0168",
+                    "labelChName":"棋牌",
+                    "labelEnName":"chesscard",
+                    "labelMark":""
+                },
+                "dance":{
+                    "labelID":"0169",
+                    "labelChName":"舞蹈",
+                    "labelEnName":"dance",
+                    "labelMark":""
+                },
+                "gaming":{
+                    "labelID":"0170",
+                    "labelChName":"电竞",
+                    "labelEnName":"gaming",
                     "labelMark":""
                 }
             }
@@ -868,16 +946,28 @@ var labelJSONLib =
             "categoryEnName":"news",
             "categoryMark":"",
             "labels":{
-                "story":{
-                    "labelID":"0105",
-                    "labelChName":"幼教",
-                    "labelEnName":"story",
+                "informationflow":{
+                    "labelID":"0171",
+                    "labelChName":"信息流",
+                    "labelEnName":"informationflow",
                     "labelMark":""
                 },
-                "english":{
-                    "labelID":"0001",
-                    "labelChName":"中小学",
-                    "labelEnName":"english",
+                "media":{
+                    "labelID":"0172",
+                    "labelChName":"媒体",
+                    "labelEnName":"media",
+                    "labelMark":""
+                },
+                "overseas":{
+                    "labelID":"0173",
+                    "labelChName":"海外",
+                    "labelEnName":"overseas",
+                    "labelMark":""
+                },
+                "affairs":{
+                    "labelID":"0174",
+                    "labelChName":"政务",
+                    "labelEnName":"affairs",
                     "labelMark":""
                 }
             }
@@ -888,16 +978,52 @@ var labelJSONLib =
             "categoryEnName":"tools",
             "categoryMark":"",
             "labels":{
-                "story":{
-                    "labelID":"0105",
-                    "labelChName":"幼教",
-                    "labelEnName":"story",
+                "search":{
+                    "labelID":"0175",
+                    "labelChName":"搜索",
+                    "labelEnName":"search",
                     "labelMark":""
                 },
-                "english":{
-                    "labelID":"0001",
-                    "labelChName":"中小学",
-                    "labelEnName":"english",
+                "storage":{
+                    "labelID":"0176",
+                    "labelChName":"存储",
+                    "labelEnName":"storage",
+                    "labelMark":""
+                },
+                "explorer":{
+                    "labelID":"0177",
+                    "labelChName":"浏览器",
+                    "labelEnName":"explorer",
+                    "labelMark":""
+                },
+                "inputmethod":{
+                    "labelID":"0178",
+                    "labelChName":"输入法",
+                    "labelEnName":"inputmethod",
+                    "labelMark":""
+                },
+                "security":{
+                    "labelID":"0179",
+                    "labelChName":"安全",
+                    "labelEnName":"security",
+                    "labelMark":""
+                },
+                "WiFi":{
+                    "labelID":"0180",
+                    "labelChName":"WiFi",
+                    "labelEnName":"WiFi",
+                    "labelMark":""
+                },
+                "calendar":{
+                    "labelID":"0181",
+                    "labelChName":"日历",
+                    "labelEnName":"calendar",
+                    "labelMark":""
+                },
+                "communication":{
+                    "labelID":"0182",
+                    "labelChName":"通讯",
+                    "labelEnName":"communication",
                     "labelMark":""
                 }
             }
@@ -908,16 +1034,40 @@ var labelJSONLib =
             "categoryEnName":"social",
             "categoryMark":"",
             "labels":{
-                "story":{
-                    "labelID":"0105",
-                    "labelChName":"幼教",
-                    "labelEnName":"story",
+                "chat":{
+                    "labelID":"0183",
+                    "labelChName":"聊天",
+                    "labelEnName":"chat",
                     "labelMark":""
                 },
-                "english":{
-                    "labelID":"0001",
-                    "labelChName":"中小学",
-                    "labelEnName":"english",
+                "community":{
+                    "labelID":"0184",
+                    "labelChName":"社区",
+                    "labelEnName":"community",
+                    "labelMark":""
+                },
+                "anonymity":{
+                    "labelID":"0185",
+                    "labelChName":"匿名",
+                    "labelEnName":"anonymity",
+                    "labelMark":""
+                },
+                "Werewolves":{
+                    "labelID":"0186",
+                    "labelChName":"狼人杀",
+                    "labelEnName":"Werewolves",
+                    "labelMark":""
+                },
+                "marriage":{
+                    "labelID":"0187",
+                    "labelChName":"婚恋",
+                    "labelEnName":"marriage",
+                    "labelMark":""
+                },
+                "expression":{
+                    "labelID":"0188",
+                    "labelChName":"表情",
+                    "labelEnName":"expression",
                     "labelMark":""
                 }
             }
@@ -928,16 +1078,40 @@ var labelJSONLib =
             "categoryEnName":"financial",
             "categoryMark":"",
             "labels":{
-                "story":{
-                    "labelID":"0105",
-                    "labelChName":"幼教",
-                    "labelEnName":"story",
+                "bank":{
+                    "labelID":"0189",
+                    "labelChName":"银行",
+                    "labelEnName":"bank",
                     "labelMark":""
                 },
-                "english":{
-                    "labelID":"0001",
-                    "labelChName":"中小学",
-                    "labelEnName":"english",
+                "payment":{
+                    "labelID":"0190",
+                    "labelChName":"支付",
+                    "labelEnName":"payment",
+                    "labelMark":""
+                },
+                "managemoney":{
+                    "labelID":"0191",
+                    "labelChName":"理财",
+                    "labelEnName":"managemoney",
+                    "labelMark":""
+                },
+                "stock":{
+                    "labelID":"0192",
+                    "labelChName":"股票",
+                    "labelEnName":"stock",
+                    "labelMark":""
+                },
+                "loans":{
+                    "labelID":"0193",
+                    "labelChName":"贷款",
+                    "labelEnName":"loans",
+                    "labelMark":""
+                },
+                "bookkeeping":{
+                    "labelID":"0194",
+                    "labelChName":"记账",
+                    "labelEnName":"bookkeeping",
                     "labelMark":""
                 }
             }
@@ -955,16 +1129,22 @@ var labelJSONLib =
             "categoryEnName":"books",
             "categoryMark":"",
             "labels":{
-                "story":{
-                    "labelID":"0105",
-                    "labelChName":"幼教",
-                    "labelEnName":"story",
+                "netliterature":{
+                    "labelID":"0195",
+                    "labelChName":"网文",
+                    "labelEnName":"netliterature",
                     "labelMark":""
                 },
-                "english":{
-                    "labelID":"0001",
-                    "labelChName":"中小学",
-                    "labelEnName":"english",
+                "cartoon":{
+                    "labelID":"0196",
+                    "labelChName":"漫画",
+                    "labelEnName":"cartoon",
+                    "labelMark":""
+                },
+                "voiced":{
+                    "labelID":"0197",
+                    "labelChName":"有声",
+                    "labelEnName":"voiced",
                     "labelMark":""
                 }
             }
@@ -981,53 +1161,67 @@ var labelJSONLib =
 
 $(document).ready(function(){
 
-    game_class = labelJSONLib.game;
-    app_class = labelJSONLib.app;
+    //videoUrl = getQueryVariable("videoUrl")
+    //document.getElementsByClassName("videoblock")[0].children[0].src = videoUrl
 
+    gameTab();
+});
+
+
+function gameTab(){
+
+    game_class = labelJSONLib.game;
     markDiv = document.getElementsByClassName("mark-group")[0];
+    markDiv.innerHTML = "";
+
     h4 = document.createElement("h4");
     h4.innerHTML = "游戏";
     markDiv.appendChild(h4);
     createLabelTable(markDiv,game_class);
 
-    buttonDiv = document.createElement("div");
-    buttonDiv.setAttribute("class", "button-group");
+    h5 = document.createElement("h5");
+    markDiv.appendChild(h5);
+
     button = document.createElement("button");
-    button.setAttribute("class", "submit");
+    button.setAttribute("class", "button");
     button.setAttribute("onclick", "getGameLables()");
     button.innerHTML = "Submit";
-    buttonDiv.appendChild(button);
+    markDiv.appendChild(button);
 
     button = document.createElement("button");
-    button.setAttribute("class", "cancel");
+    button.setAttribute("class", "button");
     button.setAttribute("onclick", "");
     button.innerHTML = "Cancel";
-    buttonDiv.appendChild(button);
+    markDiv.appendChild(button);
 
-    markDiv.appendChild(buttonDiv);
+}
+
+function appTab(){
+
+    app_class = labelJSONLib.app;
+    markDiv = document.getElementsByClassName("mark-group")[0];
+    markDiv.innerHTML = "";
 
     h4 = document.createElement("h4");
     h4.innerHTML = "应用";
     markDiv.appendChild(h4);
     createLabelTable(markDiv,app_class);
 
-    buttonDiv = document.createElement("div");
-    buttonDiv.setAttribute("class", "button-group");
+    h5 = document.createElement("h5");
+    markDiv.appendChild(h5);
+
     button = document.createElement("button");
-    button.setAttribute("class", "submit");
+    button.setAttribute("class", "button");
     button.setAttribute("onclick", "getAppLables()");
     button.innerHTML = "Submit";
-    buttonDiv.appendChild(button);
+    markDiv.appendChild(button);
 
     button = document.createElement("button");
-    button.setAttribute("class", "cancel");
+    button.setAttribute("class", "button");
     button.setAttribute("onclick", "");
     button.innerHTML = "Cancel";
-    buttonDiv.appendChild(button);
-
-    markDiv.appendChild(buttonDiv);
-});
-
+    markDiv.appendChild(button);
+}
 
 function createLabelTable(markDiv,groupClass){
 
@@ -1050,7 +1244,7 @@ function createLabelTable(markDiv,groupClass){
             input = document.createElement("input");
             input.class = "categoryMarkbox";
             input.type = "checkbox";
-            input.id = groupClass.className + "_" + categoryNode.categoryEnName;
+            input.id = groupClass.classID + categoryNode.categoryID;
             h5.appendChild(input);
         }
         markDiv.appendChild(h5);
@@ -1114,6 +1308,7 @@ function getGameLables(){
 
         var categoryNode = game_class[category];
         videoLabel["label"][categoryNode.categoryEnName] = {};
+
         for(var label in categoryNode.labels){
             var labelNode = categoryNode.labels[label];
             //labelID = game_class.className + "_" + categoryNode.categoryEnName + "_" + labelNode.labelEnName;
@@ -1130,6 +1325,9 @@ function getGameLables(){
         contentType: 'application/json',
         async: false,
         data: jsonString,
+        success: function(){
+            alert("Send success");
+        },
         error: function () {
             alert("Send error");
         }
@@ -1155,12 +1353,14 @@ function getAppLables(){
         }
         var categoryNode = app_class[category];
         videoLabel["label"][categoryNode.categoryEnName] = {};
+        categoryID = app_class.classID + categoryNode.categoryID;
+        videoLabel["label"][categoryNode.categoryEnName][categoryID] = document.getElementById(categoryID).checked;
 
         for(var label in categoryNode.labels){
             var labelNode = categoryNode.labels[label];
             //labelID = app_class.className + "_" + categoryNode.categoryEnName + "_" + labelNode.labelEnName;
-            labelID = game_class.classID + categoryNode.categoryID + labelNode.labelID;
-            videoLabel["label"][categoryNode.categoryEnName][label] = document.getElementById(labelID).checked;
+            labelID = app_class.classID + categoryNode.categoryID + labelNode.labelID;
+            videoLabel["label"][categoryNode.categoryEnName][labelID] = document.getElementById(labelID).checked;
         }
         categoryIndex++;
     }
@@ -1172,6 +1372,9 @@ function getAppLables(){
         contentType: 'application/json',
         async: false,
         data: jsonString,
+        success: function(){
+            alert("Send success");
+        },
         error: function () {
             alert("Send error");
         }
@@ -1187,4 +1390,8 @@ function getQueryVariable(variable)
            if(pair[0] == variable){return pair[1];}
    }
    return(false);
+}
+
+function getVideoUrl(){
+    getQueryVariable("videoUrl");
 }
