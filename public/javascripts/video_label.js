@@ -1164,7 +1164,6 @@ $(document).ready(function(){
     //videoUrl = getQueryVariable("videoUrl")
     //document.getElementsByClassName("videoblock")[0].children[0].src = videoUrl
 
-    gameTab();
 });
 
 

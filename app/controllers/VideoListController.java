@@ -2,6 +2,8 @@ package controllers;
 
 import static play.mvc.Controller.*;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import play.libs.Json;
 import play.libs.ws.WSClient;
 
 import play.mvc.Result;
@@ -24,20 +26,30 @@ public class VideoListController {
 
     public Result getVideoList() {
 
+        long validTime = 1514131200; //2017-12-25 00:00:00
         VideoQuery videoQuery = new VideoQuery(wsClient);
-        JsonNode returnNode = videoQuery.queryVideo();
+        ObjectNode allVideoNode = videoQuery.queryVideo();
+        ObjectNode validVideoNode = Json.newObject();
+        ObjectNode videoNode = Json.newObject();
         try {
-            Iterator<Map.Entry<String, JsonNode>> it = returnNode.get("data").fields();
+            Iterator<Map.Entry<String, JsonNode>> it = allVideoNode.get("data").fields();
             while (it.hasNext()) {
                 Map.Entry<String, JsonNode> entry = it.next();
                 String videoUrlMD5 = entry.getKey();
                 JsonNode videoInfo = entry.getValue();
-                videoUrlMap.put(videoUrlMD5, videoInfo);
+                long saveTime = Long.parseLong(videoInfo.get("saveTime").asText())/1000;
+                if(saveTime > validTime) {
+                    videoNode.set(videoUrlMD5,videoInfo);
+                    //videoUrlMap.put(videoUrlMD5, videoInfo);
+                }
             }
         }catch (Exception e){
             e.printStackTrace();
         }
-        return ok(returnNode);
+        validVideoNode.put("size",videoNode.size());
+        validVideoNode.set("data",videoNode);
+
+        return ok(validVideoNode);
     }
 
     public Result getVideo(String videoUrlMD5, String videoUrl) {

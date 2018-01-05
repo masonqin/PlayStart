@@ -1,6 +1,7 @@
 package services;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import play.libs.Json;
 import play.libs.ws.*;
 import play.libs.ws.WSResponse;
@@ -19,17 +20,16 @@ public class VideoQuery {
 
     private final String url = "http://47.97.6.37:9002/videoUrlList";
 
-    public JsonNode queryVideo() {
+    public ObjectNode queryVideo() {
         JsonNode videosNode = Json.newObject();
         WSRequest request = wsClient.url(url);
         CompletionStage<JsonNode> responsePromise = request.get().thenApply(WSResponse::asJson);
         try {
             videosNode = responsePromise.toCompletableFuture().get();
-            System.out.println(videosNode.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return videosNode;
+        return (ObjectNode)videosNode;
     }
 
     public static void setLabelInfo(String videoUrlMD5, String lable){

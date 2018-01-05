@@ -1,11 +1,41 @@
 
+var videoList = {};
+var totalNum;
+var pageCount;
+var PAGESIZE = 10;
+
 $(document).ready(function(){
 
     $.get("getVideoList",function(ret){
 
-        var videoList = ret.data;
-        videoIndex = 0;
-        $.each(videoList,function(videoUrlMD5,videoElement){
+        videoList = ret.data;
+        totalNum = ret.size;
+        pageCount = Math.ceil(totalNum/PAGESIZE);
+        pageIndexDiv = document.getElementById("pageIndexDiv");
+
+        for(i=1;i<=pageCount;i++){
+            pageLink = document.createElement("button");
+            pageLink.setAttribute("onclick", "pageDisplay(" + i + "," + PAGESIZE + ")");
+            pageLink.innerHTML = i;
+            pageIndexDiv.appendChild(pageLink);
+        }
+        pageDisplay(1,PAGESIZE);
+    });
+
+});
+
+function pageDisplay(pageNumber,pageSize){
+
+    videoIndex=1;
+
+    var startIndex = (pageNumber-1)*pageSize + 1;
+
+    videoBoard = document.getElementById("videoboard");
+    videoBoard.innerHTML = "";
+
+    $.each(videoList,function(videoUrlMD5,videoElement){
+
+        if(videoIndex>=startIndex && videoIndex<startIndex+pageSize){
 
             videoBoard = document.getElementById("videoboard");
             videoDiv = document.createElement("div");
@@ -15,7 +45,7 @@ $(document).ready(function(){
             videoDiv.setAttribute("videoUrl",videoUrl);
 
             span = document.createElement("span");
-            span.innerHTML = "Index: " + videoIndex++;
+            span.innerHTML = "Index: " + videoIndex;
             videoDiv.appendChild(span);
 
             span = document.createElement("span");
@@ -29,12 +59,10 @@ $(document).ready(function(){
             videoDiv.appendChild(videolink);
 
             videoBoard.appendChild(videoDiv);
-
-        });
+        }
+        videoIndex++;
     });
-
-});
-
+}
 
 
 
