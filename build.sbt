@@ -1,4 +1,4 @@
-name := """play-java"""
+name := """video-label"""
 
 version := "1.0-SNAPSHOT"
 
