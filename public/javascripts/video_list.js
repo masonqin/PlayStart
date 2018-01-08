@@ -10,15 +10,17 @@ $(document).ready(function(){
 
         videoList = ret.data;
         totalNum = ret.size;
+        queue_size = ret.queue_size;
+        console.log("Backend video queue size : " + queue_size);
         pageCount = Math.ceil(totalNum/PAGESIZE);
         pageIndexDiv = document.getElementById("pageIndexDiv");
 
-        for(i=1;i<=pageCount;i++){
-            pageLink = document.createElement("button");
-            pageLink.setAttribute("onclick", "pageDisplay(" + i + "," + PAGESIZE + ")");
-            pageLink.innerHTML = i;
-            pageIndexDiv.appendChild(pageLink);
-        }
+//        for(i=1;i<=pageCount;i++){
+//            pageLink = document.createElement("button");
+//            pageLink.setAttribute("onclick", "pageDisplay(" + i + "," + PAGESIZE + ")");
+//            pageLink.innerHTML = i;
+//            pageIndexDiv.appendChild(pageLink);
+//        }
         pageDisplay(1,PAGESIZE);
     });
 

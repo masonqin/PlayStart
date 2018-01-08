@@ -11,8 +11,8 @@ import play.libs.ws.*;
 import play.libs.ws.WSResponse;
 import play.libs.ws.WSRequest;
 
+import java.util.Set;
 import java.util.concurrent.CompletionStage;
-import redis.clients.jedis.Jedis;
 
 public class VideoQuery {
 
@@ -24,9 +24,10 @@ public class VideoQuery {
         this.wsClient = wsClient;
     }
 
-    private final String url = "http://47.97.6.37:9002/videoUrlList";
+    private final String url = ConfigFactory.load().getString("videoListUrl");
 
     public ObjectNode queryVideo() {
+        
         JsonNode videosNode = Json.newObject();
         WSRequest request = wsClient.url(url);
         CompletionStage<JsonNode> responsePromise = request.get().thenApply(WSResponse::asJson);
@@ -41,6 +42,10 @@ public class VideoQuery {
     public static void setLabelInfo(String videoUrlMD5, String lable){
         JedisUtils.sadd(JedisUtils.ADX_VIDEO_LABEL_PRE+videoUrlMD5,lable);
         logger.info("VideoUrlMD5: {} ======== VideoLabelNode: {}.",JedisUtils.ADX_VIDEO_LABEL_PRE+videoUrlMD5,lable);
+    }
+
+    public static Set<String> getLabelInfo(String videoUrlMD5){
+        return JedisUtils.smembers(JedisUtils.ADX_VIDEO_LABEL_PRE+videoUrlMD5);
     }
 
 }
