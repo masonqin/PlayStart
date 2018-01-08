@@ -1,16 +1,22 @@
 package services;
 
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.typesafe.config.ConfigFactory;
 import play.libs.Json;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import play.libs.ws.*;
 import play.libs.ws.WSResponse;
 import play.libs.ws.WSRequest;
 
+import java.util.Set;
 import java.util.concurrent.CompletionStage;
-import redis.clients.jedis.Jedis;
 
 public class VideoQuery {
+
+    private static final Logger logger= LoggerFactory.getLogger(VideoQuery.class);
 
     private WSClient wsClient;
 
@@ -18,9 +24,10 @@ public class VideoQuery {
         this.wsClient = wsClient;
     }
 
-    private final String url = "http://47.97.6.37:9002/videoUrlList";
+    private final String url = ConfigFactory.load().getString("videoListUrl");
 
     public ObjectNode queryVideo() {
+
         JsonNode videosNode = Json.newObject();
         WSRequest request = wsClient.url(url);
         CompletionStage<JsonNode> responsePromise = request.get().thenApply(WSResponse::asJson);
@@ -33,8 +40,16 @@ public class VideoQuery {
     }
 
     public static void setLabelInfo(String videoUrlMD5, String lable){
-        Jedis jedis = new Jedis("localhost", 6379);
-        jedis.sadd(videoUrlMD5,lable);
+        JedisUtils.sadd(JedisUtils.ADX_VIDEO_LABEL_PRE+videoUrlMD5,lable);
+        logger.info("VideoUrlMD5: {} ======== VideoLabelNode: {}.",videoUrlMD5,lable);
+    }
+
+    public static Set<String> getLabelInfo(String videoUrlMD5){
+        return JedisUtils.smembers(JedisUtils.ADX_VIDEO_LABEL_PRE+videoUrlMD5);
+    }
+
+    public static void delLabelInfo(String videoUrlMD5){
+        JedisUtils.del(JedisUtils.ADX_VIDEO_LABEL_PRE+videoUrlMD5);
     }
 
 }

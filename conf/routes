@@ -17,3 +17,7 @@ GET     /getVideoList               controllers.VideoListController.getVideoList
 GET     /getVideo                   controllers.VideoListController.getVideo(videoUrlMD5: String, videoUrl: String )
 
 POST    /setVideoLabel              controllers.VideoListController.setVideoLabel
+
+GET     /getVideoLabel              controllers.VideoListController.getVideoLabel(videoUrlMD5:String)
+
+GET     /delVideoLabel              controllers.VideoListController.delVideoLabel(videoUrlMD5:String)
