@@ -15,6 +15,7 @@ import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import akka.event.slf4j.Logger;
 
 
 public class VideoListController {
@@ -61,7 +62,7 @@ public class VideoListController {
     public Result setVideoLabel(){
         JsonNode videoLabelNode = request().body().asJson();
         if(videoLabelNode != null){
-            System.out.println(videoLabelNode.toString());
+            //System.out.println(videoLabelNode.toString());
             VideoQuery.setLabelInfo(videoLabelNode.get("videoUrlMD5").asText(), videoLabelNode.toString());
             return ok();
         }
