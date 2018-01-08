@@ -11,7 +11,7 @@
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- rollover daily -->
-            <fileNamePattern>/data/adx/akka/logs/video_error-%d{yyyy-MM-dd.HH}.log</fileNamePattern>
+            <fileNamePattern>/data/adx/videolabel/logs/video_error-%d{yyyy-MM-dd.HH}.log</fileNamePattern>
         </rollingPolicy>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>ERROR</level>
@@ -32,7 +32,7 @@
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- rollover daily -->
-            <fileNamePattern>/data/adx/akka/logs/video_access-%d{yyyy-MM-dd.HH}.log</fileNamePattern>
+            <fileNamePattern>/data/adx/videolabel/logs/video_access-%d{yyyy-MM-dd.HH}.log</fileNamePattern>
         </rollingPolicy>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>ERROR</level>
