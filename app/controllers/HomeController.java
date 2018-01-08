@@ -1,9 +1,18 @@
 package controllers;
 
+import akka.actor.ActorRef;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import play.mvc.*;
+import scala.compat.java8.FutureConverters;
+import services.AkkaSystem;
 import views.html.*;
 
+import javax.inject.Inject;
+import play.libs.ws.*;
+import play.libs.ws.ahc.*;
 
+import java.util.concurrent.CompletionStage;
 
 
 /**
@@ -19,9 +28,25 @@ public class HomeController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
 
+    private final AkkaSystem actorSystem;
+    private static final Logger logger= LoggerFactory.getLogger(HomeController.class);
 
-    public Result index() {
-        return ok(index.render(""));
+    @Inject
+    public HomeController() {
+
+        actorSystem=new AkkaSystem();
+    }
+
+    public CompletionStage<Result> index() {
+
+        return FutureConverters.toJava(
+                actorSystem.ask(new Object())).
+                thenApply(response->{logger.info("receive response:" + response);
+                //System.out.println("Controller get response: " + ((WSResponse)response).getBody().toString());
+                return ok(((WSResponse)response).getBody());
+        });
+
+        //return ok(index.render(""));
 
     }
 
