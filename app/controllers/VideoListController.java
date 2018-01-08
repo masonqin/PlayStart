@@ -95,4 +95,9 @@ public class VideoListController {
         return ok(VideoQuery.getLabelInfo(videoUrlMD5).toString());
     }
 
+    public Result delVideoLabel(String videoUrlMD5) {
+        VideoQuery.delLabelInfo(videoUrlMD5);
+        return ok();
+    }
+
 }

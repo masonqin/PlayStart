@@ -1183,15 +1183,15 @@ function gameTab(){
 
     button = document.createElement("button");
     button.setAttribute("class", "button");
-    button.setAttribute("onclick", "getGameLables()");
+    button.setAttribute("onclick", "getGameLabels()");
     button.innerHTML = "Submit";
     markDiv.appendChild(button);
 
-    button = document.createElement("button");
-    button.setAttribute("class", "button");
-    button.setAttribute("onclick", "");
-    button.innerHTML = "Cancel";
-    markDiv.appendChild(button);
+//    button = document.createElement("button");
+//    button.setAttribute("class", "button");
+//    button.setAttribute("onclick", "");
+//    button.innerHTML = "Cancel";
+//    markDiv.appendChild(button);
 
 }
 
@@ -1211,15 +1211,15 @@ function appTab(){
 
     button = document.createElement("button");
     button.setAttribute("class", "button");
-    button.setAttribute("onclick", "getAppLables()");
+    button.setAttribute("onclick", "getAppLabels()");
     button.innerHTML = "Submit";
     markDiv.appendChild(button);
 
-    button = document.createElement("button");
-    button.setAttribute("class", "button");
-    button.setAttribute("onclick", "");
-    button.innerHTML = "Cancel";
-    markDiv.appendChild(button);
+//    button = document.createElement("button");
+//    button.setAttribute("class", "button");
+//    button.setAttribute("onclick", "");
+//    button.innerHTML = "Cancel";
+//    markDiv.appendChild(button);
 }
 
 function createLabelTable(markDiv,groupClass){
@@ -1287,7 +1287,7 @@ function createLabelTable(markDiv,groupClass){
     }
 }
 
-function getGameLables(){
+function getGameLabels(){
 
     var videoLabel = {};
     videoLabel["videoUrlMD5"] = getQueryVariable("videoUrlMD5")
@@ -1327,6 +1327,7 @@ function getGameLables(){
         data: jsonString,
         success: function(){
             alert("Send success");
+            window.close();
         },
         error: function () {
             alert("Send error");
@@ -1334,7 +1335,7 @@ function getGameLables(){
     })
 }
 
-function getAppLables(){
+function getAppLabels(){
 
     var videoLabel = {};
     videoLabel["videoUrlMD5"] = getQueryVariable("videoUrlMD5")
@@ -1375,6 +1376,7 @@ function getAppLables(){
         data: jsonString,
         success: function(){
             alert("Send success");
+            window.close();
         },
         error: function () {
             alert("Send error");
@@ -1437,6 +1439,7 @@ function videoError()
         data: jsonString,
         success: function(){
             alert("Send success");
+            window.close();
         },
         error: function () {
             alert("Send error");
