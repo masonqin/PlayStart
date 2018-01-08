@@ -1293,6 +1293,7 @@ function getGameLables(){
     videoLabel["videoUrlMD5"] = getQueryVariable("videoUrlMD5")
     videoLabel["videoUrl"] = document.getElementsByClassName("videoblock")[0].currentSrc;
     videoLabel["label"] = {};
+    videoLabel["label"]["labelAuthor"] = getQueryVariable("labelAuthor");
     videoLabel["label"]["game_app"] = "game";
 
     var game_class = labelJSONLib.game;
@@ -1339,6 +1340,7 @@ function getAppLables(){
     videoLabel["videoUrlMD5"] = getQueryVariable("videoUrlMD5")
     videoLabel["videoUrl"] = document.getElementsByClassName("videoblock")[0].currentSrc;
     videoLabel["label"] = {};
+    videoLabel["label"]["labelAuthor"] = getQueryVariable("labelAuthor");
     videoLabel["label"]["game_app"] = "app";
 
     var app_class = labelJSONLib.app;
@@ -1393,4 +1395,52 @@ function getQueryVariable(variable)
 
 function getVideoUrl(){
     getQueryVariable("videoUrl");
+}
+
+function videoError()
+{
+    var videoLabel = {};
+    videoLabel["videoUrlMD5"] = getQueryVariable("videoUrlMD5")
+    videoLabel["videoUrl"] = document.getElementsByClassName("videoblock")[0].currentSrc;
+    videoLabel["label"] = {};
+    videoLabel["label"]["labelAuthor"] = getQueryVariable("labelAuthor");
+    videoLabel["label"]["game_app"] = "videoError";
+
+    var game_class = labelJSONLib.game;
+
+    var categoryIndex = 0;
+    for(var category in game_class){
+
+        if(categoryIndex<2){
+            categoryIndex++;
+            continue;
+        }
+
+        var categoryNode = game_class[category];
+        videoLabel["label"][categoryNode.categoryEnName] = {};
+
+        for(var label in categoryNode.labels){
+            var labelNode = categoryNode.labels[label];
+            //labelID = game_class.className + "_" + categoryNode.categoryEnName + "_" + labelNode.labelEnName;
+            labelID = game_class.classID + categoryNode.categoryID + labelNode.labelID;
+            //videoLabel["label"][categoryNode.categoryEnName][label] = document.getElementById(labelID).checked;
+            //videoLabel["label"][categoryNode.categoryEnName][labelID] = document.getElementById(labelID).checked;
+        }
+        categoryIndex++;
+    }
+    var jsonString = JSON.stringify(videoLabel);
+    $.ajax({
+        type: "POST",
+        url: "setVideoLabel",
+        contentType: 'application/json',
+        async: false,
+        data: jsonString,
+        success: function(){
+            alert("Send success");
+        },
+        error: function () {
+            alert("Send error");
+        }
+    })
+
 }
