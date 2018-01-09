@@ -25,14 +25,14 @@ public class AkkaSystem {
 
     public AkkaSystem(){
 
-        int size = Integer.parseInt(ConfigFactory.load().getString("systemactor.size"));
+        //int size = Integer.parseInt(ConfigFactory.load().getString("systemactor.size"));
         actorSystem = ActorSystem.create("RTB-actor-system");
         Props masterProps = Props.create(QueryActor.class);
 
         //first test one actor's
-        //actorRef = actorSystem.actorOf(mainProps,"QueryActor");
+        //actorRef = actorSystem.actorOf(masterProps,"QueryActor");
         //actor with router
-        actorRef = actorSystem.actorOf(masterProps.withRouter(new RoundRobinPool(100)),"QueryActor");
+        actorRef = actorSystem.actorOf(masterProps.withRouter(new RoundRobinPool(5)),"QueryActor");
 
     }
 

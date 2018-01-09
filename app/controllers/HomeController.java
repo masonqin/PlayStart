@@ -41,7 +41,8 @@ public class HomeController extends Controller {
 
         return FutureConverters.toJava(
                 actorSystem.ask(new Object())).
-                thenApply(response->{logger.info("receive response:" + response);
+                thenApply(response->{
+                //logger.info("receive response:" + response);
                 //System.out.println("Controller get response: " + ((WSResponse)response).getBody().toString());
                 return ok(((WSResponse)response).getBody());
         });
