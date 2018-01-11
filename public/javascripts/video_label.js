@@ -76,7 +76,7 @@ function createGameLabelTable(markDiv,groupClass){
         }
 
         categoryNode = groupClass[category];
-        label = document.createElement("label");
+        titlelabel = document.createElement("label");
         h5 = document.createElement("h4");
         h5.innerHTML = categoryNode.categoryChName;
 
@@ -88,8 +88,8 @@ function createGameLabelTable(markDiv,groupClass){
             input.id = groupClass.classID + categoryNode.categoryID;
             h5.appendChild(input);
         }
-        label.appendChild(h5);
-        markDiv.appendChild(label);
+        titlelabel.appendChild(h5);
+        markDiv.appendChild(titlelabel);
 
         table = document.createElement("table");
         tbody = document.createElement("tbody");
@@ -143,7 +143,7 @@ function createAppLabelTable(markDiv,groupClass){
         }
 
         categoryNode = groupClass[category];
-        label = document.createElement("label");
+        titlelabel = document.createElement("label");
         h5 = document.createElement("h4");
         h5.innerHTML = categoryNode.categoryChName;
 
@@ -154,8 +154,8 @@ function createAppLabelTable(markDiv,groupClass){
         input.id = groupClass.classID + categoryNode.categoryID;
         h5.appendChild(input);
 
-        label.appendChild(h5);
-        markDiv.appendChild(label);
+        titlelabel.appendChild(h5);
+        markDiv.appendChild(titlelabel);
 
         table = document.createElement("table");
         tbody = document.createElement("tbody");
@@ -181,7 +181,7 @@ function createAppLabelTable(markDiv,groupClass){
             if(subLabelNodes){
 
                 td = document.createElement("td");
-                td.innerHTML = "子标签：";
+                td.innerHTML = "———子标签：";
                 tr.appendChild(td);
 
                 for(var sublabel in subLabelNodes){
@@ -199,7 +199,6 @@ function createAppLabelTable(markDiv,groupClass){
             }
             tbody.appendChild(tr);
         }
-        tbody.appendChild(tr);
         table.appendChild(tbody);
         markDiv.appendChild(table);
         categoryIndex++;
