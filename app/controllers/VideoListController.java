@@ -36,42 +36,65 @@ public class VideoListController {
 
     public Result getVideoList() {
 
-
         long validTime = Long.parseLong(ConfigFactory.load().getString("validTime"));
-        synchronized (counter) {
-            if (counter.queueSize() < 20) {
-                logger.info("Queue size: {}, it's time to get video list.",counter.queueSize());
-                VideoQuery videoQuery = new VideoQuery(wsClient);
-                ObjectNode allVideoNode = videoQuery.queryVideo();
-                try {
-                    Iterator<Map.Entry<String, JsonNode>> it = allVideoNode.get("data").fields();
-                    while (it.hasNext()) {
-                        Map.Entry<String, JsonNode> entry = it.next();
-                        JsonNode videoInfo = entry.getValue();
-                        long saveTime = Long.parseLong(videoInfo.get("saveTime").asText()) / 1000;
-                        if (saveTime > validTime) {
-                            counter.queuePut(entry);
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
+        VideoQuery videoQuery = new VideoQuery(wsClient);
+        ObjectNode allVideoNode = videoQuery.queryVideo();
+        ObjectNode videoNode = Json.newObject();
+        try {
+            Iterator<Map.Entry<String, JsonNode>> it = allVideoNode.get("data").fields();
+            while (it.hasNext()) {
+                Map.Entry<String, JsonNode> entry = it.next();
+                JsonNode videoInfo = entry.getValue();
+                long saveTime = Long.parseLong(videoInfo.get("saveTime").asText()) / 1000;
+                if (saveTime > validTime) {
+                    videoNode.set(entry.getKey(),videoInfo);
                 }
             }
-        }
-
-        Map.Entry<String, JsonNode> entry;
-        ObjectNode videoNode = Json.newObject();
-        for(int i=0;i<10;i++) {
-            entry = counter.queueGet();
-            String videoUrlMD5 = entry.getKey();
-            JsonNode videoInfo = entry.getValue();
-            videoNode.set(videoUrlMD5, videoInfo);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         ObjectNode validVideoNode = Json.newObject();
         validVideoNode.put("size", videoNode.size());
-        validVideoNode.put("queue_size", counter.queueSize());
+        validVideoNode.put("queue_size", 0);
         validVideoNode.set("data", videoNode);
+
+        //block queue version
+//        long validTime = Long.parseLong(ConfigFactory.load().getString("validTime"));
+//        synchronized (counter) {
+//            if (counter.queueSize() < 20) {
+//                logger.info("Queue size: {}, it's time to get video list.",counter.queueSize());
+//                VideoQuery videoQuery = new VideoQuery(wsClient);
+//                ObjectNode allVideoNode = videoQuery.queryVideo();
+//                try {
+//                    Iterator<Map.Entry<String, JsonNode>> it = allVideoNode.get("data").fields();
+//                    while (it.hasNext()) {
+//                        Map.Entry<String, JsonNode> entry = it.next();
+//                        JsonNode videoInfo = entry.getValue();
+//                        long saveTime = Long.parseLong(videoInfo.get("saveTime").asText()) / 1000;
+//                        if (saveTime > validTime) {
+//                            counter.queuePut(entry);
+//                        }
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//
+//        Map.Entry<String, JsonNode> entry;
+//        ObjectNode videoNode = Json.newObject();
+//        for(int i=0;i<10;i++) {
+//            entry = counter.queueGet();
+//            String videoUrlMD5 = entry.getKey();
+//            JsonNode videoInfo = entry.getValue();
+//            videoNode.set(videoUrlMD5, videoInfo);
+//        }
+//
+//        ObjectNode validVideoNode = Json.newObject();
+//        validVideoNode.put("size", videoNode.size());
+//        validVideoNode.put("queue_size", counter.queueSize());
+//        validVideoNode.set("data", videoNode);
 
         return ok(validVideoNode);
     }

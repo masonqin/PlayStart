@@ -27,7 +27,8 @@ function getVideoList(){
 //            pageLink.innerHTML = i;
 //            pageIndexDiv.appendChild(pageLink);
 //        }
-        pageDisplay(1,PAGESIZE);
+//        pageDisplay(1,PAGESIZE);
+          pageDisplay(1,1000);
     });
 
 }
