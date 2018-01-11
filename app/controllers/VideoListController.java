@@ -11,6 +11,7 @@ import play.libs.ws.WSClient;
 
 import play.mvc.Result;
 import services.AtomicCounter;
+import services.LabelJsonGen;
 import services.VideoQuery;
 import views.html.video;
 
@@ -89,6 +90,10 @@ public class VideoListController {
             return ok();
         }
         return notFound();
+    }
+
+    public Result getVideoLabelJson(){
+        return ok((new LabelJsonGen().genLabelJson()));
     }
 
     public Result getVideoLabel(String videoUrlMD5) {

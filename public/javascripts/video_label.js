@@ -1,6 +1,384 @@
 
 
-var labelJSONLib =
+var labelJSONLib;
+$(document).ready(function(){
+    $.get("getVideoLabelJson",function(ret){
+        labelJSONLib = ret;
+    });
+});
+
+
+function gameTab(){
+
+    game_class = labelJSONLib.game;
+    markDiv = document.getElementsByClassName("mark-group")[0];
+    markDiv.innerHTML = "";
+
+    h4 = document.createElement("h3");
+    h4.innerHTML = "游戏";
+    markDiv.appendChild(h4);
+    createGameLabelTable(markDiv,game_class);
+
+    h5 = document.createElement("h4");
+    markDiv.appendChild(h5);
+
+    button = document.createElement("button");
+    button.setAttribute("class", "button");
+    button.setAttribute("onclick", "getGameLabels()");
+    button.innerHTML = "Submit";
+    markDiv.appendChild(button);
+
+//    button = document.createElement("button");
+//    button.setAttribute("class", "button");
+//    button.setAttribute("onclick", "");
+//    button.innerHTML = "Cancel";
+//    markDiv.appendChild(button);
+
+}
+
+function appTab(){
+
+    app_class = labelJSONLib.app;
+    markDiv = document.getElementsByClassName("mark-group")[0];
+    markDiv.innerHTML = "";
+
+    h4 = document.createElement("h3");
+    h4.innerHTML = "应用";
+    markDiv.appendChild(h4);
+    createAppLabelTable(markDiv,app_class);
+
+    h5 = document.createElement("h4");
+    markDiv.appendChild(h5);
+
+    button = document.createElement("button");
+    button.setAttribute("class", "button");
+    button.setAttribute("onclick", "getAppLabels()");
+    button.innerHTML = "Submit";
+    markDiv.appendChild(button);
+
+//    button = document.createElement("button");
+//    button.setAttribute("class", "button");
+//    button.setAttribute("onclick", "");
+//    button.innerHTML = "Cancel";
+//    markDiv.appendChild(button);
+}
+
+function createGameLabelTable(markDiv,groupClass){
+
+    var line_num = 9;
+
+    var categoryIndex = 0;
+    for(var category in groupClass){
+
+        if(categoryIndex<2){
+            categoryIndex++;
+            continue;
+        }
+
+        categoryNode = groupClass[category];
+        label = document.createElement("label");
+        h5 = document.createElement("h4");
+        h5.innerHTML = categoryNode.categoryChName;
+
+        if(groupClass.classID == "002") {
+            //app
+            input = document.createElement("input");
+            input.class = "categoryMarkbox";
+            input.type = "checkbox";
+            input.id = groupClass.classID + categoryNode.categoryID;
+            h5.appendChild(input);
+        }
+        label.appendChild(h5);
+        markDiv.appendChild(label);
+
+        table = document.createElement("table");
+        tbody = document.createElement("tbody");
+        tr = document.createElement("tr");
+
+        var labelIndex = 0;
+        for(var label in categoryNode.labels){
+
+            var labelNode = categoryNode.labels[label];
+
+            td = document.createElement("td");
+            label = document.createElement("label");
+
+//            label.innerHTML = "<input class=\"labelMarkbox\" type=\"checkbox\" id=" +
+//                                groupClass.className + "_" +
+//                                categoryNode.categoryEnName + "_" +
+//                                labelNode.labelEnName +
+//                                ">" + labelNode.labelChName;
+            label.innerHTML = "<input class=\"labelMarkbox\" type=\"checkbox\" id=" +
+                                groupClass.classID +
+                                categoryNode.categoryID +
+                                labelNode.labelID +
+                                ">" + labelNode.labelChName;
+
+            td.appendChild(label);
+            tr.appendChild(td);
+
+            if(labelIndex>0 && (labelIndex+1)%line_num == 0){
+                tbody.appendChild(tr);
+                tr = document.createElement("tr");
+            }
+            labelIndex++;
+        }
+        tbody.appendChild(tr);
+        table.appendChild(tbody);
+        markDiv.appendChild(table);
+        categoryIndex++;
+    }
+}
+
+function createAppLabelTable(markDiv,groupClass){
+
+    var line_num = 13;
+
+    var categoryIndex = 0;
+    for(var category in groupClass){
+
+        if(categoryIndex<2){
+            categoryIndex++;
+            continue;
+        }
+
+        categoryNode = groupClass[category];
+        label = document.createElement("label");
+        h5 = document.createElement("h4");
+        h5.innerHTML = categoryNode.categoryChName;
+
+        //app
+        input = document.createElement("input");
+        input.class = "categoryMarkbox";
+        input.type = "checkbox";
+        input.id = groupClass.classID + categoryNode.categoryID;
+        h5.appendChild(input);
+
+        label.appendChild(h5);
+        markDiv.appendChild(label);
+
+        table = document.createElement("table");
+        tbody = document.createElement("tbody");
+
+
+        var labelIndex = 0;
+        for(var label in categoryNode.labels){
+
+            var labelNode = categoryNode.labels[label];
+
+            tr = document.createElement("tr");
+            td = document.createElement("td");
+            html_label = document.createElement("label");
+
+            html_label.innerHTML = "<input class=\"labelMarkbox\" type=\"checkbox\" id=" +
+                                groupClass.classID +
+                                categoryNode.categoryID +
+                                labelNode.labelID +
+                                ">" + labelNode.labelChName;
+            td.appendChild(html_label);
+            tr.appendChild(td);
+            var subLabelNodes = labelNode.subLabels;
+            if(subLabelNodes){
+
+                td = document.createElement("td");
+                td.innerHTML = "子标签：";
+                tr.appendChild(td);
+
+                for(var sublabel in subLabelNodes){
+                    subLabelNode = subLabelNodes[sublabel];
+                    td_sub = document.createElement("td");
+                    html_label_sub = document.createElement("label");
+                    html_label_sub.innerHTML = "<input class=\"labelMarkbox\" type=\"checkbox\" id=" +
+                                                    groupClass.classID +
+                                                    categoryNode.categoryID +
+                                                    labelNode.labelID + subLabelNode.subLabelID +
+                                                    ">" + subLabelNode.subLabelChName;
+                    td_sub.appendChild(html_label_sub);
+                    tr.appendChild(td_sub);
+                }
+            }
+            tbody.appendChild(tr);
+        }
+        tbody.appendChild(tr);
+        table.appendChild(tbody);
+        markDiv.appendChild(table);
+        categoryIndex++;
+    }
+}
+
+function getGameLabels(){
+
+    var videoLabel = {};
+    videoLabel["videoUrlMD5"] = getQueryVariable("videoUrlMD5")
+    videoLabel["videoUrl"] = document.getElementsByClassName("videoblock")[0].currentSrc;
+    videoLabel["label"] = {};
+    videoLabel["label"]["labelAuthor"] = getQueryVariable("labelAuthor");
+    videoLabel["label"]["game_app"] = "game";
+
+    var game_class = labelJSONLib.game;
+
+    var categoryIndex = 0;
+    for(var category in game_class){
+
+        if(categoryIndex<2){
+            categoryIndex++;
+            continue;
+        }
+
+        var categoryNode = game_class[category];
+        videoLabel["label"][categoryNode.categoryEnName] = {};
+
+        for(var label in categoryNode.labels){
+            var labelNode = categoryNode.labels[label];
+            //labelID = game_class.className + "_" + categoryNode.categoryEnName + "_" + labelNode.labelEnName;
+            labelID = game_class.classID + categoryNode.categoryID + labelNode.labelID;
+            //videoLabel["label"][categoryNode.categoryEnName][label] = document.getElementById(labelID).checked;
+            videoLabel["label"][categoryNode.categoryEnName][labelID] = document.getElementById(labelID).checked;
+        }
+        categoryIndex++;
+    }
+    var jsonString = JSON.stringify(videoLabel);
+    $.ajax({
+        type: "POST",
+        url: "setVideoLabel",
+        contentType: 'application/json',
+        async: false,
+        data: jsonString,
+        success: function(){
+            alert("Send success");
+            window.close();
+        },
+        error: function () {
+            alert("Send error");
+        }
+    })
+}
+
+function getAppLabels(){
+
+    var videoLabel = {};
+    videoLabel["videoUrlMD5"] = getQueryVariable("videoUrlMD5")
+    videoLabel["videoUrl"] = document.getElementsByClassName("videoblock")[0].currentSrc;
+    videoLabel["label"] = {};
+    videoLabel["label"]["labelAuthor"] = getQueryVariable("labelAuthor");
+    videoLabel["label"]["game_app"] = "app";
+
+    var app_class = labelJSONLib.app;
+
+    var categoryIndex = 0;
+    for(var category in app_class){
+
+        if(categoryIndex<2){
+            categoryIndex++;
+            continue;
+        }
+        var categoryNode = app_class[category];
+        videoLabel["label"][categoryNode.categoryEnName] = {};
+        categoryID = app_class.classID + categoryNode.categoryID;
+        videoLabel["label"][categoryNode.categoryEnName][categoryID] = document.getElementById(categoryID).checked;
+
+        for(var label in categoryNode.labels){
+            var labelNode = categoryNode.labels[label];
+            //labelID = app_class.className + "_" + categoryNode.categoryEnName + "_" + labelNode.labelEnName;
+            labelID = app_class.classID + categoryNode.categoryID + labelNode.labelID;
+
+            videoLabel["label"][categoryNode.categoryEnName][labelID] = {};
+            videoLabel["label"][categoryNode.categoryEnName][labelID]["mark"] = document.getElementById(labelID).checked;
+
+            var subLabelNodes = labelNode.subLabels;
+            if(subLabelNodes){
+                videoLabel["label"][categoryNode.categoryEnName][labelID]["subLabel"] = {};
+                for(var sublabel in subLabelNodes){
+                    subLabelNode = subLabelNodes[sublabel];
+                    subLabelID = app_class.classID + categoryNode.categoryID + labelNode.labelID + subLabelNode.subLabelID;
+                    videoLabel["label"][categoryNode.categoryEnName][labelID]["subLabel"][subLabelID] = document.getElementById(subLabelID).checked;
+                }
+            }
+        }
+        categoryIndex++;
+    }
+
+    var jsonString = JSON.stringify(videoLabel);
+    $.ajax({
+        type: "POST",
+        url: "setVideoLabel",
+        contentType: 'application/json',
+        async: false,
+        data: jsonString,
+        success: function(){
+            alert("Send success");
+            window.close();
+        },
+        error: function () {
+            alert("Send error");
+        }
+    })
+}
+
+function getQueryVariable(variable)
+{
+   var query = window.location.search.substring(1);
+   var vars = query.split("&");
+   for (var i=0;i<vars.length;i++) {
+           var pair = vars[i].split("=");
+           if(pair[0] == variable){return pair[1];}
+   }
+   return(false);
+}
+
+function getVideoUrl(){
+    getQueryVariable("videoUrl");
+}
+
+function videoError()
+{
+    var videoLabel = {};
+    videoLabel["videoUrlMD5"] = getQueryVariable("videoUrlMD5")
+    videoLabel["videoUrl"] = document.getElementsByClassName("videoblock")[0].currentSrc;
+    videoLabel["label"] = {};
+    videoLabel["label"]["labelAuthor"] = getQueryVariable("labelAuthor");
+    videoLabel["label"]["game_app"] = "videoError";
+
+    var game_class = labelJSONLib.game;
+
+    var categoryIndex = 0;
+    for(var category in game_class){
+
+        if(categoryIndex<2){
+            categoryIndex++;
+            continue;
+        }
+
+        var categoryNode = game_class[category];
+        videoLabel["label"][categoryNode.categoryEnName] = {};
+
+        for(var label in categoryNode.labels){
+            var labelNode = categoryNode.labels[label];
+            //labelID = game_class.className + "_" + categoryNode.categoryEnName + "_" + labelNode.labelEnName;
+            labelID = game_class.classID + categoryNode.categoryID + labelNode.labelID;
+            //videoLabel["label"][categoryNode.categoryEnName][label] = document.getElementById(labelID).checked;
+            //videoLabel["label"][categoryNode.categoryEnName][labelID] = document.getElementById(labelID).checked;
+        }
+        categoryIndex++;
+    }
+    var jsonString = JSON.stringify(videoLabel);
+    $.ajax({
+        type: "POST",
+        url: "setVideoLabel",
+        contentType: 'application/json',
+        async: false,
+        data: jsonString,
+        success: function(){
+            alert("Send success");
+            window.close();
+        },
+        error: function () {
+            alert("Send error");
+        }
+    })
+
+}
+/*
 {
     "game":{
         "className":"game",
@@ -1157,293 +1535,5 @@ var labelJSONLib =
             "labels":{}
         }
     }
-};
-
-$(document).ready(function(){
-
-    //videoUrl = getQueryVariable("videoUrl")
-    //document.getElementsByClassName("videoblock")[0].children[0].src = videoUrl
-
-});
-
-
-function gameTab(){
-
-    game_class = labelJSONLib.game;
-    markDiv = document.getElementsByClassName("mark-group")[0];
-    markDiv.innerHTML = "";
-
-    h4 = document.createElement("h4");
-    h4.innerHTML = "游戏";
-    markDiv.appendChild(h4);
-    createLabelTable(markDiv,game_class);
-
-    h5 = document.createElement("h5");
-    markDiv.appendChild(h5);
-
-    button = document.createElement("button");
-    button.setAttribute("class", "button");
-    button.setAttribute("onclick", "getGameLabels()");
-    button.innerHTML = "Submit";
-    markDiv.appendChild(button);
-
-//    button = document.createElement("button");
-//    button.setAttribute("class", "button");
-//    button.setAttribute("onclick", "");
-//    button.innerHTML = "Cancel";
-//    markDiv.appendChild(button);
-
 }
-
-function appTab(){
-
-    app_class = labelJSONLib.app;
-    markDiv = document.getElementsByClassName("mark-group")[0];
-    markDiv.innerHTML = "";
-
-    h4 = document.createElement("h4");
-    h4.innerHTML = "应用";
-    markDiv.appendChild(h4);
-    createLabelTable(markDiv,app_class);
-
-    h5 = document.createElement("h5");
-    markDiv.appendChild(h5);
-
-    button = document.createElement("button");
-    button.setAttribute("class", "button");
-    button.setAttribute("onclick", "getAppLabels()");
-    button.innerHTML = "Submit";
-    markDiv.appendChild(button);
-
-//    button = document.createElement("button");
-//    button.setAttribute("class", "button");
-//    button.setAttribute("onclick", "");
-//    button.innerHTML = "Cancel";
-//    markDiv.appendChild(button);
-}
-
-function createLabelTable(markDiv,groupClass){
-
-    var line_num = 13;
-
-    var categoryIndex = 0;
-    for(var category in groupClass){
-
-        if(categoryIndex<2){
-            categoryIndex++;
-            continue;
-        }
-
-        categoryNode = groupClass[category];
-        h5 = document.createElement("h5");
-        h5.innerHTML = categoryNode.categoryChName;
-
-        if(groupClass.classID == "002") {
-            //app
-            input = document.createElement("input");
-            input.class = "categoryMarkbox";
-            input.type = "checkbox";
-            input.id = groupClass.classID + categoryNode.categoryID;
-            h5.appendChild(input);
-        }
-        markDiv.appendChild(h5);
-
-        table = document.createElement("table");
-        tbody = document.createElement("tbody");
-        tr = document.createElement("tr");
-
-        var labelIndex = 0;
-        for(var label in categoryNode.labels){
-
-            var labelNode = categoryNode.labels[label];
-
-            td = document.createElement("td");
-            label = document.createElement("label");
-
-//            label.innerHTML = "<input class=\"labelMarkbox\" type=\"checkbox\" id=" +
-//                                groupClass.className + "_" +
-//                                categoryNode.categoryEnName + "_" +
-//                                labelNode.labelEnName +
-//                                ">" + labelNode.labelChName;
-            label.innerHTML = "<input class=\"labelMarkbox\" type=\"checkbox\" id=" +
-                                groupClass.classID +
-                                categoryNode.categoryID +
-                                labelNode.labelID +
-                                ">" + labelNode.labelChName;
-
-            td.appendChild(label);
-            tr.appendChild(td);
-
-            if(labelIndex>0 && (labelIndex+1)%line_num == 0){
-                tbody.appendChild(tr);
-                tr = document.createElement("tr");
-            }
-            labelIndex++;
-        }
-        tbody.appendChild(tr);
-        table.appendChild(tbody);
-        markDiv.appendChild(table);
-        categoryIndex++;
-    }
-}
-
-function getGameLabels(){
-
-    var videoLabel = {};
-    videoLabel["videoUrlMD5"] = getQueryVariable("videoUrlMD5")
-    videoLabel["videoUrl"] = document.getElementsByClassName("videoblock")[0].currentSrc;
-    videoLabel["label"] = {};
-    videoLabel["label"]["labelAuthor"] = getQueryVariable("labelAuthor");
-    videoLabel["label"]["game_app"] = "game";
-
-    var game_class = labelJSONLib.game;
-
-    var categoryIndex = 0;
-    for(var category in game_class){
-
-        if(categoryIndex<2){
-            categoryIndex++;
-            continue;
-        }
-
-        var categoryNode = game_class[category];
-        videoLabel["label"][categoryNode.categoryEnName] = {};
-
-        for(var label in categoryNode.labels){
-            var labelNode = categoryNode.labels[label];
-            //labelID = game_class.className + "_" + categoryNode.categoryEnName + "_" + labelNode.labelEnName;
-            labelID = game_class.classID + categoryNode.categoryID + labelNode.labelID;
-            //videoLabel["label"][categoryNode.categoryEnName][label] = document.getElementById(labelID).checked;
-            videoLabel["label"][categoryNode.categoryEnName][labelID] = document.getElementById(labelID).checked;
-        }
-        categoryIndex++;
-    }
-    var jsonString = JSON.stringify(videoLabel);
-    $.ajax({
-        type: "POST",
-        url: "setVideoLabel",
-        contentType: 'application/json',
-        async: false,
-        data: jsonString,
-        success: function(){
-            alert("Send success");
-            window.close();
-        },
-        error: function () {
-            alert("Send error");
-        }
-    })
-}
-
-function getAppLabels(){
-
-    var videoLabel = {};
-    videoLabel["videoUrlMD5"] = getQueryVariable("videoUrlMD5")
-    videoLabel["videoUrl"] = document.getElementsByClassName("videoblock")[0].currentSrc;
-    videoLabel["label"] = {};
-    videoLabel["label"]["labelAuthor"] = getQueryVariable("labelAuthor");
-    videoLabel["label"]["game_app"] = "app";
-
-    var app_class = labelJSONLib.app;
-
-    var categoryIndex = 0;
-    for(var category in app_class){
-
-        if(categoryIndex<2){
-            categoryIndex++;
-            continue;
-        }
-        var categoryNode = app_class[category];
-        videoLabel["label"][categoryNode.categoryEnName] = {};
-        categoryID = app_class.classID + categoryNode.categoryID;
-        videoLabel["label"][categoryNode.categoryEnName][categoryID] = document.getElementById(categoryID).checked;
-
-        for(var label in categoryNode.labels){
-            var labelNode = categoryNode.labels[label];
-            //labelID = app_class.className + "_" + categoryNode.categoryEnName + "_" + labelNode.labelEnName;
-            labelID = app_class.classID + categoryNode.categoryID + labelNode.labelID;
-            videoLabel["label"][categoryNode.categoryEnName][labelID] = document.getElementById(labelID).checked;
-        }
-        categoryIndex++;
-    }
-
-    var jsonString = JSON.stringify(videoLabel);
-    $.ajax({
-        type: "POST",
-        url: "setVideoLabel",
-        contentType: 'application/json',
-        async: false,
-        data: jsonString,
-        success: function(){
-            alert("Send success");
-            window.close();
-        },
-        error: function () {
-            alert("Send error");
-        }
-    })
-}
-
-function getQueryVariable(variable)
-{
-   var query = window.location.search.substring(1);
-   var vars = query.split("&");
-   for (var i=0;i<vars.length;i++) {
-           var pair = vars[i].split("=");
-           if(pair[0] == variable){return pair[1];}
-   }
-   return(false);
-}
-
-function getVideoUrl(){
-    getQueryVariable("videoUrl");
-}
-
-function videoError()
-{
-    var videoLabel = {};
-    videoLabel["videoUrlMD5"] = getQueryVariable("videoUrlMD5")
-    videoLabel["videoUrl"] = document.getElementsByClassName("videoblock")[0].currentSrc;
-    videoLabel["label"] = {};
-    videoLabel["label"]["labelAuthor"] = getQueryVariable("labelAuthor");
-    videoLabel["label"]["game_app"] = "videoError";
-
-    var game_class = labelJSONLib.game;
-
-    var categoryIndex = 0;
-    for(var category in game_class){
-
-        if(categoryIndex<2){
-            categoryIndex++;
-            continue;
-        }
-
-        var categoryNode = game_class[category];
-        videoLabel["label"][categoryNode.categoryEnName] = {};
-
-        for(var label in categoryNode.labels){
-            var labelNode = categoryNode.labels[label];
-            //labelID = game_class.className + "_" + categoryNode.categoryEnName + "_" + labelNode.labelEnName;
-            labelID = game_class.classID + categoryNode.categoryID + labelNode.labelID;
-            //videoLabel["label"][categoryNode.categoryEnName][label] = document.getElementById(labelID).checked;
-            //videoLabel["label"][categoryNode.categoryEnName][labelID] = document.getElementById(labelID).checked;
-        }
-        categoryIndex++;
-    }
-    var jsonString = JSON.stringify(videoLabel);
-    $.ajax({
-        type: "POST",
-        url: "setVideoLabel",
-        contentType: 'application/json',
-        async: false,
-        data: jsonString,
-        success: function(){
-            alert("Send success");
-            window.close();
-        },
-        error: function () {
-            alert("Send error");
-        }
-    })
-
-}
+*/
