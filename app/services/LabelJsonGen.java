@@ -1,5 +1,6 @@
 package services;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import play.libs.Json;
 
@@ -167,17 +168,26 @@ public class LabelJsonGen {
             travelservicesEN, travellingguidelineEN, touraroundEN, travelaccommodationEN, traveltoolsEN, onlinemusicEN, livingtoolsEN,
             televisionEN, liveEN, chatfriendsEN, communityEN, investmentEN};
 
+    //add id and label name map
+    Map<String, String> labelMap = new HashMap<>();
+
+
     public ObjectNode genGameLabelJson() {
 
         ObjectNode gameRootNode = Json.newObject();
         gameRootNode.put("className", "game");
         gameRootNode.put("classID", "001");
+        //add label map
+        labelMap.put("001", "游戏");
 
         for (int i = 0; i < gameClasses.length; i++) {
             ObjectNode classNode = Json.newObject();
             classNode.put("categoryID", String.format("%04d", i));
             classNode.put("categoryChName", gameClassesName[i]);
             classNode.put("categoryEnName", gameClassesNameEN[i]);
+            //add label map
+            labelMap.put("001" + String.format("%04d", i), gameClassesName[i]);
+
             ObjectNode labelNode = Json.newObject();
             for (int j = 0; j < gameClasses[i].length; j++) {
                 ObjectNode labelNodeDetail = Json.newObject();
@@ -185,6 +195,8 @@ public class LabelJsonGen {
                 labelNodeDetail.put("labelChName", gameClasses[i][j]);
                 labelNodeDetail.put("labelEnName", gameClassesEN[i][j]);
                 labelNodeDetail.put("labelMark", "");
+                //add label map
+                labelMap.put("001" + String.format("%04d", i) + String.format("%04d", labelIndex - 1), gameClasses[i][j]);
                 labelNode.set(gameClassesEN[i][j], labelNodeDetail);
             }
             classNode.set("labels", labelNode);
@@ -213,12 +225,16 @@ public class LabelJsonGen {
 
         appRootNode.put("className", "app");
         appRootNode.put("classID", "002");
+        //add label map
+        labelMap.put("002", "应用");
 
         for (int i = 0; i < appTopLevelLabels.length; i++) {
             ObjectNode classNode = Json.newObject();
             classNode.put("categoryID", String.format("%04d", i));
             classNode.put("categoryChName", appTopLevelLabels[i]);
             classNode.put("categoryEnName", appTopLevelLabelsEN[i]);
+            //add label map
+            labelMap.put("002" + String.format("%04d", i), appTopLevelLabels[i]);
             ObjectNode labelNode = Json.newObject();
             String[] subLevel = appSubLevelLabels.get(appTopLevelLabels[i]);
             String[] subLevelEN = appSubLevelLabelsEN.get(appTopLevelLabels[i]);
@@ -228,7 +244,9 @@ public class LabelJsonGen {
                 labelNodeDetail.put("labelChName", subLevel[j]);
                 labelNodeDetail.put("labelEnName", subLevelEN[j]);
                 labelNodeDetail.put("labelMark", "");
-
+                //add label map
+                labelMap.put("002" + String.format("%04d", i) + String.format("%04d", labelIndex - 1), subLevel[j]);
+                String parentIndex = String.format("%04d", labelIndex - 1);
 
                 String[] thirdLevel = appThirdLevelLabels.get(subLevel[j]);
                 if (thirdLevel != null) {
@@ -240,6 +258,8 @@ public class LabelJsonGen {
                         subLabelNodeDetail.put("subLabelChName", thirdLevel[k]);
                         subLabelNodeDetail.put("subLabelEnName", thirdLevelEN[k]);
                         subLabelNodeDetail.put("subLabelMark", "");
+                        //add label map
+                        labelMap.put("002" + String.format("%04d", i) + parentIndex + String.format("%04d", labelIndex - 1), thirdLevel[k]);
                         subLabelNode.set(thirdLevelEN[k], subLabelNodeDetail);
                     }
                     labelNodeDetail.set("subLabels", subLabelNode);
@@ -260,6 +280,19 @@ public class LabelJsonGen {
         rootNode.set("game", gameNode);
         rootNode.set("app", appNode);
         return rootNode;
+    }
+
+    public ObjectNode getLabelJsonMap() {
+
+        ObjectNode retLabelJsonMap = Json.newObject();
+        genLabelJson();
+        try {
+            retLabelJsonMap = (ObjectNode) Json.mapper().readTree(Json.mapper().writeValueAsString(labelMap));
+            System.out.println(labelMap.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return retLabelJsonMap;
     }
 
 }

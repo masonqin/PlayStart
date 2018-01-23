@@ -128,4 +128,8 @@ public class VideoListController {
         return ok();
     }
 
+    public Result getLabelMap(){
+        return ok(new LabelJsonGen().getLabelJsonMap());
+    }
+
 }

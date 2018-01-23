@@ -23,3 +23,5 @@ GET     /getVideoLabel              controllers.VideoListController.getVideoLabe
 GET     /delVideoLabel              controllers.VideoListController.delVideoLabel(videoUrlMD5:String)
 
 GET     /getVideoLabelJson          controllers.VideoListController.getVideoLabelJson
+
+GET     /getLabelMap                controllers.VideoListController.getLabelMap
